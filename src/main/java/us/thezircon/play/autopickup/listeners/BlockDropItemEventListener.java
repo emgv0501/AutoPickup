@@ -12,11 +12,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import us.thezircon.play.autopickup.AutoPickup;
 import us.thezircon.play.autopickup.utils.AutoSmelt;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class BlockDropItemEventListener implements Listener {
 
@@ -56,9 +58,10 @@ public class BlockDropItemEventListener implements Listener {
                 ItemStack drop = i.getItemStack();
                 int amount = i.getItemStack().getAmount();
                 leftOver.putAll((player.getInventory().addItem(new ItemStack(i.getItemStack().getType(), amount))));
-                if (!leftOver.isEmpty()) { // Checks for inventory space
+                if (leftOver.isEmpty()){ // Checks for inventory space
                     //Player has no space
-                    if (doFullInvMSG) {player.sendMessage(PLUGIN.getMsg().getPrefix() + " " + PLUGIN.getMsg().getFullInventory());}
+
+                    if (doFullInvMSG) {e.setCancelled(true);}
 
                     if (voidOnFullInv) {
                         i.remove();
