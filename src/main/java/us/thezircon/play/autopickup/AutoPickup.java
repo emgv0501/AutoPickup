@@ -105,6 +105,7 @@ public final class AutoPickup extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityDeathEventListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractEventListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDropItemEventListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitEventListener(), this);
         getServer().getPluginManager().registerEvents(new ItemSpawnEventListener(), this);
 
         // Commands
