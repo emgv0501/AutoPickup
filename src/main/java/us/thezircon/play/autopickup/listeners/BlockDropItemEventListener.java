@@ -1,6 +1,7 @@
 package us.thezircon.play.autopickup.listeners;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.bukkit.entity.Entity;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import us.thezircon.play.autopickup.AutoPickup;
 import us.thezircon.play.autopickup.utils.AutoSmelt;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class BlockDropItemEventListener implements Listener {
@@ -45,12 +47,16 @@ public class BlockDropItemEventListener implements Listener {
         }
 
         if (PLUGIN.autopickup_list.contains(player)) { // Player has auto enabled
+            HashMap<Integer, ItemStack> leftOver = new HashMap<Integer, ItemStack>();
+
+
             for (Entity en : e.getItems()) {
 
                 Item i = (Item) en;
                 ItemStack drop = i.getItemStack();
-
-                if (player.getInventory().firstEmpty() == -1) { // Checks for inventory space
+                int amount = i.getItemStack().getAmount();
+                leftOver.putAll((player.getInventory().addItem(new ItemStack(i.getItemStack().getType(), amount))));
+                if (!leftOver.isEmpty()) { // Checks for inventory space
                     //Player has no space
                     if (doFullInvMSG) {player.sendMessage(PLUGIN.getMsg().getPrefix() + " " + PLUGIN.getMsg().getFullInventory());}
 

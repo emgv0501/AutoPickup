@@ -1,6 +1,5 @@
 package us.thezircon.play.autopickup.listeners;
 
-import me.crafter.mc.lockettepro.LocketteProAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -79,12 +78,7 @@ public class BlockBreakEventListener implements Listener {
             }
         }
 
-        // LockettePro Patch
-        if (AutoPickup.usingLocketteProByBrunyman) {
-            if (LocketteProAPI.isLocked(block)) {
-                return;
-            }
-        }
+        // LockettePro Patch MALARDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO NISIQUIERA EXISTE EL PLUGIN ANYMORE
 
         // AOneBlock Patch
         new BukkitRunnable() {
