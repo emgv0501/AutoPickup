@@ -1,5 +1,6 @@
 package us.thezircon.play.autopickup.listeners;
 
+import com.sun.tools.javac.jvm.Items;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -24,7 +25,7 @@ public class BlockDropItemEventListener implements Listener {
 
     private static final AutoPickup PLUGIN = AutoPickup.getPlugin(AutoPickup.class);
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onDrop(BlockDropItemEvent e) {
         Player player = e.getPlayer();
         Block block = e.getBlock();
@@ -56,19 +57,25 @@ public class BlockDropItemEventListener implements Listener {
 
                 Item i = (Item) en;
                 ItemStack drop = i.getItemStack();
-                int amount = i.getItemStack().getAmount();
+                int amount = drop.getAmount();
+                player.getInventory().removeItem(new ItemStack(i.getItemStack().getType(), 1));
                 leftOver.putAll((player.getInventory().addItem(new ItemStack(i.getItemStack().getType(), amount))));
-                if (leftOver.isEmpty()){ // Checks for inventory space
-                    //Player has no space
 
-                    if (doFullInvMSG) {e.setCancelled(true);}
+                if (!leftOver.isEmpty()){ // Checks for inventory space
+                    player.sendMessage(PLUGIN.getMsg().getPrefix() + " " + PLUGIN.getMsg().getFullInventory());
 
                     if (voidOnFullInv) {
                         i.remove();
                     }
 
                     return;
-                }
+                } else e.setCancelled(false);
+
+
+
+
+
+
 
                 if (doBlacklist) { // Checks if blacklist is enabled
                     if (blacklist.contains(drop.getType().toString())) { // Stops resets the loop skipping the item & not removing it

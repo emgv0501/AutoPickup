@@ -5,6 +5,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.thezircon.play.autopickup.commands.AutoDrops;
@@ -164,6 +165,7 @@ public final class AutoPickup extends JavaPlugin {
 
     @Override
     public void onDisable() {
+       this.autopickup_list.clear();
         // Plugin shutdown logic
     }
 
