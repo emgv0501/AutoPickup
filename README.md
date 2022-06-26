@@ -1,2 +1,2 @@
 # AutoPickup
- Pick up the items you mine
+Mejorando este plugin en decadencia...
