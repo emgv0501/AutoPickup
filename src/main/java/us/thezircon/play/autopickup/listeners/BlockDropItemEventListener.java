@@ -57,16 +57,12 @@ public class BlockDropItemEventListener implements Listener {
 
                 Item i = (Item) en;
                 ItemStack drop = i.getItemStack();
-                int amount = drop.getAmount();
-                player.getInventory().removeItem(new ItemStack(i.getItemStack().getType(), 1));
+                int amount = 0;
+                amount = drop.getAmount();
                 leftOver.putAll((player.getInventory().addItem(new ItemStack(i.getItemStack().getType(), amount))));
-
+                player.getInventory().removeItem(new ItemStack(i.getItemStack().getType(), 1));
                 if (!leftOver.isEmpty()){ // Checks for inventory space
                     player.sendMessage(PLUGIN.getMsg().getPrefix() + " " + PLUGIN.getMsg().getFullInventory());
-
-                    if (voidOnFullInv) {
-                        i.remove();
-                    }
 
                     return;
                 } else e.setCancelled(false);
